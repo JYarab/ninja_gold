@@ -1,0 +1,113 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper{
+    background-color: lightgray;
+    margin: auto;
+    width: 960px;
+    height: fit-content;
+    padding: 15px;
+}
+
+#adventures{
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#adventures .farm{
+    background-image: url("/static/imgs/reid-gif.gif");
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+#adventures .cave{
+    color: white;
+    background-image: url("/static/imgs/cave.gif");
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+#adventures .house{
+    background-image: url("/static/imgs/house.gif");
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+#adventures .casino{
+    color: white;
+    background-image: url("/static/imgs/casino.gif");
+    background-repeat:no-repeat;
+    background-size: cover;
+}
+
+#history{
+    overflow: auto;
+    border: solid black 2px;
+    height: 200px;
+    margin: 18px;
+}
+
+#gold{
+    display: inline-block;
+    border: solid black 2px;
+    width: 120px;
+    padding: 3px;
+}
+
+#topbar{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+#conditions{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-around;
+    height: 125px;
+    padding: 15px;
+    border: solid black 2px;
+    margin: 18px;
+}
+
+#conditions button{
+    margin-top: 15px;
+}
+
+#reset_button{
+    width: fit-content;
+    margin:auto;
+}
+
+.location{
+    font-weight: bold;
+    font-size: larger;
+    display: flex;
+    flex-direction: column;
+    border: solid black 2px;
+    width: 200px;
+    height:132px;
+    text-align: center;
+    justify-content: space-around;
+}
+
+button{
+    padding: 3px;
+}
+
+.green{
+    color: green
+}
+
+.red{
+    color:red
+}
+
+#topbar p{
+    display: inline-block;
+}
+

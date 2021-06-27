@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Ninja Gold</title>
+</head>
+<body>
+    <div id="wrapper">
+        <div id="topbar">
+            <p>Your Gold:</p>
+            <div id="gold">
+                {% if request.session.gold is None %}
+                    0
+                {% else %}
+                    {{request.session.gold}}
+                {% endif %}
+            </div>
+            <p>Adventures Taken:</p>
+            <div id="gold">
+                {% if request.session.adventures is None %}
+                    0
+                {% else %}
+                    {{request.session.adventures}}
+                {% endif %}
+            </div>
+        </div>
+        <div id="adventures">
+            <div class="location farm">
+                <h3>Farm</h3>
+                
+                <!-- <form action="/process_money" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="location" id="location" value="farm"> -->
+                    <a href="/farm"><button>Find Gold!</button></a>
+                    <p>(earns 10-20 gold)</p>
+                </form>
+            </div>
+            <div class="location cave">
+                <h3>Cave</h3>
+                
+                <!-- <form action="/process_money" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="location" id="location" value="cave"> -->
+                    <a href="/cave"><button>Find Gold!</button></a>
+                    <p>(earns 5-10 gold)</p>
+                </form>
+            </div>
+            <div class="location house">
+                <h3>House</h3>
+                
+                <!-- <form action="/process_money" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="location" id="location" value="house"> -->
+                    <a href="/house"><button>Find Gold!</button></a>
+                    <p>(earns 2-5 gold)</p>
+                </form>
+            </div>
+            <div class="location casino">
+                <h3>Casino</h3>
+                
+                <!-- <form action="/process_money" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="location" id="location" value="casino"> -->
+                    <a href="/casino"><button>Find Gold!</button></a>
+                    <p>(earns/looses 0-50 gold)</p>
+                </form>
+            </div>
+        </div>
+        <p>Activities:</p>
+        <div id="history">
+            {% for item in request.session.history %}
+                <p class="{% if 'Earned' in item %}green{% else %}red{% endif %}">{{item}}</p>
+            {% endfor %}
+        </div>
+        <div id="conditions">
+            <h2>Enter Win Conditions</h2>
+            <form action="/set_win" method="POST">
+                {% csrf_token %}
+                <p>
+                <label for="win_gold">Earn how much gold:</label>
+                <input type="number" name="win_gold" id="win_gold" min="1" placeholder="gold to win" {% if request.session.win_gold != None %} disabled {% endif %}>
+                <label for="win_moves">In how many adventures:</label>
+                <input type="number" name="win_adv" id="win_adv" min="1" placeholder="adventure limit" {% if request.session.win_adv != None %} disabled {% endif %}>
+                </p>
+                <button type="submit" {% if request.session.win_adv != None or request.session.win_gold != None %} disabled {% endif %}>Submit</button>
+            </form>
+            <button id="reset_button" onclick="location.href='/reset'">Reset</button>
+        </div>
+        
+    </div>
+</body>
+<script type='text/javascript'>
+    var element = document.getElementById("history");
+    element.scrollTop = element.scrollHeight;
+</script>
+</html>
