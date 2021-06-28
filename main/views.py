@@ -109,6 +109,6 @@ def log_adv(request, gold_earned):
 
 def win_check(request):
     if (int(request.session['adventures']) <= int(request.session['win_adv']) and int(request.session['gold']) >= int(request.session['win_gold'])):
-        request.session['history'].append(f'Congradulations you won, reset to play again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
+        request.session['history'].append(f'Congratulations you won, reset to play again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
     elif (int(request.session['adventures']) >= int(request.session['win_adv']) and int(request.session['gold']) < int(request.session['win_gold'])):
         request.session['history'].append(f'Adventure over,  not enough gold, reset to try again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
