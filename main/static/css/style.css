@@ -91,12 +91,13 @@
     border: solid black 2px;
     width: 200px;
     height:132px;
-    text-align: center;
+    align-items: center;
     justify-content: space-around;
 }
 
 button{
     padding: 3px;
+    width: fit-content;
 }
 
 .green{
