@@ -58,7 +58,7 @@ def process_money(request):
 
     #check for valid win conditions
     if(int(request.session['win_gold']) == 0 or int(request.session['win_adv']) == 0):
-        request.session['history'].append(f'Enter valid win conditions to play, reset and again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
+        request.session['history'].append(f'Enter valid win conditions to play, reset and try again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
 
     #complete an adventure
     elif(int(request.session['adventures']) < int(request.session['win_adv']) and int(request.session['gold']) < int(request.session['win_gold'])):
