@@ -56,56 +56,47 @@ def process_money(request):
         history = []
     request.session['history'] = history
 
+    #check for valid win conditions
     if(int(request.session['win_gold']) == 0 or int(request.session['win_adv']) == 0):
         request.session['history'].append(f'Enter valid win conditions to play, reset to and again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
 
-    #check for win conditions
-    # elif(int(request.session['adventures']) <= int(request.session['win_adv']) and int(request.session['gold']) >= int(request.session['win_gold'])):
-    #     request.session['history'].append(f'Congradulations you won, reset to play again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
-
     #complete an adventure
     elif(int(request.session['adventures']) < int(request.session['win_adv']) and int(request.session['gold']) < int(request.session['win_gold'])):
+        
+        request.session['adventures'] += 1
+
         #Farm Selected
         if(request.session['location'] == 'farm'):
             gold_earned = random.randint(10,20)
-            request.session['adventures'] += 1
             request.session['gold'] += gold_earned
-            adventure_num = request.session['adventures']
-            request.session['history'].append(f'Adventure number {adventure_num}. Earned {gold_earned} gold from the farm! {strftime("%Y-%m-%d %H:%M %p",localtime())}')
+            log_adv(request, gold_earned)
             win_check(request)
 
         # Cave Selected 
         if(request.session['location'] == 'cave'):
             gold_earned = random.randint(5,10)
-            request.session['adventures'] += 1
             request.session['gold'] += gold_earned
-            adventure_num = request.session['adventures']
-            request.session['history'].append(f'Adventure number {adventure_num}. Earned {gold_earned} gold from the cave! {strftime("%Y-%m-%d %H:%M %p",localtime())}')
+            log_adv(request, gold_earned)
             win_check(request)
+
         
         #House Selected
         if(request.session['location'] == 'house'):
             gold_earned = random.randint(2,5)
-            request.session['adventures'] += 1
             request.session['gold'] += gold_earned
-            adventure_num = request.session['adventures']
-            request.session['history'].append(f'Adventure number {adventure_num}. Earned {gold_earned} gold from the house! {strftime("%Y-%m-%d %H:%M %p",localtime())}')
-            win_check(request) 
-        
+            log_adv(request, gold_earned)
+            win_check(request)
+
         #Casino selected 
         if(request.session['location'] == 'casino'):
             gold_earned = random.randint(-50,50)
-            request.session['adventures'] += 1
             request.session['gold'] += gold_earned
-            adventure_num = request.session['adventures']
             if (gold_earned > 0):
-                request.session['history'].append(f'Adventure number {adventure_num}. Earned {gold_earned} gold from the casino! {strftime("%Y-%m-%d %H:%M %p",localtime())}')
+                log_adv(request, gold_earned)
                 win_check(request)
             else:
-                request.session['history'].append(f'Adventure number {adventure_num}. Oh No!! {abs(gold_earned)} gold lost at the casino! {strftime("%Y-%m-%d %H:%M %p",localtime())}')
+                request.session['history'].append(f'Adventure number {request.session["adventures"]}. Oh No!! {abs(gold_earned)} gold lost at the {request.session["location"]}! {strftime("%Y-%m-%d %H:%M %p",localtime())}')
                 win_check(request)
-    # else:
-    #     request.session['history'].append(f'Adventure over, reset to try again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
     return redirect('/')
 
 def reset(request):
@@ -113,9 +104,11 @@ def reset(request):
     print("clear session")
     return redirect('/')
 
+def log_adv(request, gold_earned):
+    request.session['history'].append(f'Adventure number {request.session["adventures"]}. Earned {gold_earned} gold from the {request.session["location"]}! {strftime("%Y-%m-%d %H:%M %p",localtime())}')
+
 def win_check(request):
     if (int(request.session['adventures']) <= int(request.session['win_adv']) and int(request.session['gold']) >= int(request.session['win_gold'])):
         request.session['history'].append(f'Congradulations you won, reset to play again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
-
     elif (int(request.session['adventures']) >= int(request.session['win_adv']) and int(request.session['gold']) < int(request.session['win_gold'])):
         request.session['history'].append(f'Adventure over,  not enough gold, reset to try again. {strftime("%Y-%m-%d %H:%M %p",localtime())}')
