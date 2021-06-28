@@ -82,9 +82,9 @@
                 {% csrf_token %}
                 <p>
                 <label for="win_gold">Earn how much gold:</label>
-                <input type="number" name="win_gold" id="win_gold" min="1" placeholder="gold to win" {% if request.session.win_gold != None %} disabled {% endif %}>
+                <input type="number" name="win_gold" id="win_gold" min="1" placeholder="{% if request.session.win_gold != None %} {{request.session.win_gold}} {% else %} Gold to Win {% endif %}" {% if request.session.win_gold != None %} disabled {% endif %}>
                 <label for="win_moves">In how many adventures:</label>
-                <input type="number" name="win_adv" id="win_adv" min="1" placeholder="adventure limit" {% if request.session.win_adv != None %} disabled {% endif %}>
+                <input type="number" name="win_adv" id="win_adv" min="1" placeholder="{% if request.session.win_adv != None %} {{request.session.win_adv}} {% else %} Adventure Limit {% endif %}" {% if request.session.win_adv != None %} disabled {% endif %}>
                 </p>
                 <button type="submit" {% if request.session.win_adv != None or request.session.win_gold != None %} disabled {% endif %}>Submit</button>
             </form>
